@@ -26,14 +26,14 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(392.72727272727275, 813.0909090909091),
+        designSize: const Size(392.72, 813.09),
         builder: ((context, child) {
           return Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 250, 172, 56),
-                  Color.fromARGB(255, 247, 38, 23),
+                  Color.fromARGB(255, 198, 19, 69),
                 ],
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
@@ -78,12 +78,12 @@ class MyHomePage extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyText1!),
                         Sheight(15),
                         SizedBox(
-                          height: (ScreenUtil().screenHeight / 2) + 20,
+                          height: 400.h,
                           child: ListView.builder(
                               clipBehavior: Clip.none,
                               scrollDirection: Axis.horizontal,
                               itemCount: 3,
-                              padding: EdgeInsets.only(
+                              padding: const EdgeInsets.only(
                                 top: 10,
                                 bottom: 10,
                               ),
@@ -110,9 +110,96 @@ class MyHomePage extends StatelessWidget {
                                       ],
                                       borderRadius: BorderRadius.circular(12),
                                       color: Colors.white),
-                                  height: (ScreenUtil().screenHeight / 2),
                                   width: ScreenUtil().screenWidth - 100,
-                                  child: Column(children: const []),
+                                  child: Stack(children: [
+                                    Positioned(
+                                      left: 20,
+                                      top: 20,
+                                      child: Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              border: Border.all(
+                                                  width: 0.1,
+                                                  color: Colors.orangeAccent)),
+                                          child: Center(
+                                            child: RadiantGradientMask(
+                                              child: Icon(
+                                                Icons.person,
+                                                size: 30.w,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                    Positioned(
+                                      right: 20,
+                                      top: 20,
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.more_vert,
+                                          size: 30.w,
+                                        ),
+                                        onPressed: () {},
+                                      ),
+                                    ),
+
+                                    // ignore: prefer_const_literals_to_create_immutables
+                                    Positioned(
+                                      bottom: 20,
+                                      left: 20,
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              '9 Tasks',
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Sheight(8),
+                                            Text('Personal',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline1!
+                                                    .copyWith(
+                                                        color: Colors.black)),
+                                            Sheight(30),
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                    width: ScreenUtil()
+                                                            .screenWidth -
+                                                        175.w,
+                                                    child:
+                                                        const LinearProgressIndicator(
+                                                      value: 45 / 100,
+                                                      valueColor:
+                                                          AlwaysStoppedAnimation<
+                                                              Color>(
+                                                        Colors.yellow,
+                                                      ),
+                                                      backgroundColor:
+                                                          Colors.grey,
+                                                    )),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0),
+                                                  child: Text(
+                                                    '45%',
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 14.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ]),
+                                    )
+                                  ]),
                                 );
                               })),
                         ),
@@ -122,5 +209,25 @@ class MyHomePage extends StatelessWidget {
             ),
           );
         }));
+  }
+}
+
+class RadiantGradientMask extends StatelessWidget {
+  const RadiantGradientMask({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (bounds) => const LinearGradient(
+        colors: [
+          Color.fromARGB(255, 250, 172, 56),
+          Color.fromARGB(255, 198, 19, 69),
+        ],
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+      ).createShader(bounds),
+      child: child,
+    );
   }
 }
