@@ -53,8 +53,7 @@ class MyHomePage extends StatelessWidget {
               ),
               drawer: const Drawer(),
               body: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                padding: const EdgeInsets.only(left: 40, top: 20, bottom: 20),
                 child: SizedBox(
                   // margin: const EdgeInsets.only(top: 70),
                   width: double.infinity,
@@ -77,6 +76,46 @@ class MyHomePage extends StatelessWidget {
                         Sheight(50),
                         Text('TODAY:SEPTEMBER 12 , 2017',
                             style: Theme.of(context).textTheme.bodyText1!),
+                        Sheight(15),
+                        SizedBox(
+                          height: (ScreenUtil().screenHeight / 2) + 20,
+                          child: ListView.builder(
+                              clipBehavior: Clip.none,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 3,
+                              padding: EdgeInsets.only(
+                                top: 10,
+                                bottom: 10,
+                              ),
+                              itemBuilder: ((context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(right: 20.w),
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.20),
+                                          offset: const Offset(
+                                            0.0,
+                                            4.0,
+                                          ),
+                                          blurRadius: 2.0,
+                                          spreadRadius: 5.0,
+                                        ),
+                                        const BoxShadow(
+                                          color: Colors.white,
+                                          offset: Offset(0.0, 0.0),
+                                          blurRadius: 0.0,
+                                          spreadRadius: 0.0,
+                                        ),
+                                      ],
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: Colors.white),
+                                  height: (ScreenUtil().screenHeight / 2),
+                                  width: ScreenUtil().screenWidth - 100,
+                                  child: Column(children: const []),
+                                );
+                              })),
+                        ),
                       ]),
                 ),
               ),
